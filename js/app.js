@@ -76,6 +76,8 @@ function deleteNote(index) {
     showNotes();
 }
 
+
+// To search notes from search box
 let search = document.getElementById("searchTxt");
 search.addEventListener("input", function () {
     let inputVal = search.value.toLowerCase;

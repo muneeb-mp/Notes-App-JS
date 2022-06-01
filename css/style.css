@@ -1,0 +1,15 @@
+body{
+    background-color:rgb(167, 204, 167);
+}
+
+.card{
+    background-color:rgb(195, 223, 195);
+}
+
+#addTxt{
+    background-color:rgb(225, 238, 225);
+}
+
+.navbar-brand:hover{
+    color: aquamarine;
+}

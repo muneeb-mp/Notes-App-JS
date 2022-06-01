@@ -2,6 +2,7 @@
 showNotes();    //To show saved notes when we reload page
 let addBtn = document.getElementById("addBtn");
 addBtn.addEventListener("click", function (e) {
+    let addTitle = document.getElementById("addTitle");
     let addTxt = document.getElementById("addTxt");
     let notes = localStorage.getItem("notes");  //fetch notes from local storage
 
@@ -11,10 +12,16 @@ addBtn.addEventListener("click", function (e) {
     else {
         notesObj = JSON.parse(notes);
     }
-    notesObj.push(addTxt.value);
+
+    // Added obj which contains title and body
+    let myObj = {
+        title: addTitle.value,
+        desc: addTxt.value
+    };
+    notesObj.push(myObj);
     localStorage.setItem("notes", JSON.stringify(notesObj));   //Local storage does not support arrays, so convert into string.
+    addTitle.value = "";
     addTxt.value = "";  //Empty textbox after user clicks on add note button
-    // console.log(notesObj);  //Display notes array
 
     showNotes();    //function to display notes
 });
@@ -34,8 +41,8 @@ function showNotes() {
         html += `
             <div class="card noteCard my-2 mx-2" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">Note #${index + 1}</h5>
-                    <p class="card-text">${element}</p>
+                    <h3 class="card-title"><b>${element.title}</b></h3>
+                    <p class="card-text">${element.desc}</p>
                     <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
                 </div>
             </div>
@@ -53,9 +60,7 @@ function showNotes() {
     }
 }
 
-
 // Function to delete a note
-
 function deleteNote(index) {
     // console.log("I am deleting", index);
 
@@ -66,7 +71,6 @@ function deleteNote(index) {
     else {
         notesObj = JSON.parse(notes);
     }
-
     notesObj.splice(index, 1);
     localStorage.setItem("notes", JSON.stringify(notesObj));
     showNotes();
@@ -75,12 +79,10 @@ function deleteNote(index) {
 let search = document.getElementById("searchTxt");
 search.addEventListener("input", function () {
     let inputVal = search.value.toLowerCase;
-    // console.log("I/P event fired, ", inputVal);
 
     let noteCards = document.getElementsByClassName("noteCard");
     Array.from(noteCards).forEach(function (element) {
         let cardTxt = element.getElementsByTagName("p")[0].innerText;
-
         if (cardTxt.includes(inputVal)) {
             element.style.display = "block";
         }

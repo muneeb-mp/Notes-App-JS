@@ -6,7 +6,7 @@ body{
     background-color:rgb(195, 223, 195);
 }
 
-#addTxt{
+#addTxt, #titleTxt{
     background-color:rgb(225, 238, 225);
 }
 
